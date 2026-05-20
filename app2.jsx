@@ -89,7 +89,7 @@ function Hero({ t, lang, autoplay, setAutoplay }) {
             </div>
           </div>
 
-          <div className="rise d2">
+          <div className="rise d2 hero-dash">
             <ClinicDashboard t={t.demo} lang={lang} autoplay={autoplay} onAutoplayChange={setAutoplay} />
           </div>
         </div>

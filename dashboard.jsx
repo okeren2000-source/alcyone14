@@ -431,7 +431,23 @@ function ClinicDashboard({ t, lang, autoplay, onAutoplayChange }) {
             </div>
           </aside>
 
-          {Panel}
+          <div className="panel-wrap">
+            <div className="mobile-tabs" role="tablist">
+              {tabs.map(tab => (
+                <button
+                  key={tab.key}
+                  className={`mobile-tab ${active === tab.key ? "on" : ""}`}
+                  onClick={() => switchTo(tab.key)}
+                  role="tab"
+                  aria-selected={active === tab.key}
+                >
+                  {tab.label}
+                  {tab.badge && <span className="sb-badge" style={{marginInlineStart:4}}>{tab.badge}</span>}
+                </button>
+              ))}
+            </div>
+            {Panel}
+          </div>
         </div>
       </div>
     </div>
