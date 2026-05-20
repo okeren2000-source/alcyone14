@@ -55,7 +55,7 @@
 * { box-sizing: border-box; }
 
 /* Prevent scroll-anchor from jumping the page when autoplay switches panels */
-html { overflow-anchor: none; }
+html, body { overflow-anchor: none; }
 
 html, body {
   margin: 0;

@@ -3,7 +3,7 @@
 // Tabs: dashboard, patients, calendar, whatsapp, payments
 // Auto-play cycles through tabs on a 4.2s interval; pauses on hover/click.
 
-const { useState, useEffect, useRef } = React;
+const { useState, useEffect, useLayoutEffect, useRef } = React;
 
 /* ----------- Icons (inline SVG, no library) ----------- */
 const Icon = {
@@ -323,6 +323,20 @@ function ClinicDashboard({ t, lang, autoplay, onAutoplayChange }) {
   const intervalRef = useRef(null);
   const [tickKey, setTickKey] = useState(0); // re-trigger CSS animation
   const userInteracted = useRef(false);
+  const panelContentRef = useRef(null);
+  const lockedHeightRef = useRef(0);
+
+  // Lock the panel area to the tallest tab seen so far. Runs synchronously
+  // before paint so the browser never sees a height decrease — eliminating
+  // the scroll-jump that scroll-anchoring causes when tabs switch.
+  useLayoutEffect(() => {
+    const el = panelContentRef.current;
+    if (!el) return;
+    el.style.minHeight = '';
+    const h = el.offsetHeight;
+    if (h > lockedHeightRef.current) lockedHeightRef.current = h;
+    el.style.minHeight = lockedHeightRef.current + 'px';
+  });
 
   useEffect(() => {
     if (!autoplay) {
@@ -445,7 +459,9 @@ function ClinicDashboard({ t, lang, autoplay, onAutoplayChange }) {
                 </button>
               ))}
             </div>
-            {Panel}
+            <div ref={panelContentRef}>
+              {Panel}
+            </div>
           </div>
         </div>
       </div>
