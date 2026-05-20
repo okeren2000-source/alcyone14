@@ -449,9 +449,9 @@ function Footer({ t }) {
 
 /* ----------- Top-level App ----------- */
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "palette": ["#0b1d2a", "#2f6f7a", "#f6f4ee"],
+  "palette": ["#0a0a0a", "#7c8aff", "#fafafa"],
   "density": "spacious",
-  "theme": "light",
+  "theme": "dark",
   "lang": "he"
 }/*EDITMODE-END*/;
 
@@ -473,10 +473,13 @@ function App() {
   useEffect(() => {
     const [ink, accent, bg] = tw.palette;
     const root = document.documentElement;
-    root.style.setProperty("--ink", ink);
     root.style.setProperty("--accent", accent);
     if (tw.theme === "light") {
+      root.style.setProperty("--ink", ink);
       root.style.setProperty("--bg", bg);
+    } else {
+      root.style.removeProperty("--ink");
+      root.style.removeProperty("--bg");
     }
   }, [tw.palette, tw.theme]);
 
