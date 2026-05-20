@@ -477,7 +477,6 @@ button { font: inherit; cursor: pointer; }
 
 /* On mobile: hide sidebar, show tab strip, collapse hero frame */
 @media (max-width: 640px) {
-  .hero-dash { display: none; }
   .app-shell { grid-template-columns: 1fr !important; min-height: 0; }
   .sidebar { display: none; }
   .mobile-tabs { display: flex; }
