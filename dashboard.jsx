@@ -109,7 +109,6 @@ function DashboardPanel({ t }) {
             <span className="kpi-label">{k.l}</span>
             <span className="kpi-value">{k.v}</span>
             <span className="kpi-delta">{k.d}</span>
-            <Sparkline pts={[3 + i, 4, 5, 4, 6, 7, 6, 8, 9, 10 + i]} />
           </div>
         ))}
       </div>
