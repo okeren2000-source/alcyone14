@@ -302,7 +302,7 @@ button { font: inherit; cursor: pointer; }
   display: grid;
   grid-template-columns: 1.05fr 1fr;
   gap: clamp(40px, 6vw, 88px);
-  align-items: center;
+  align-items: start;
 }
 @media (max-width: 1200px) {
   .hero-grid { grid-template-columns: 1fr; }
