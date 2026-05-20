@@ -223,6 +223,13 @@ button { font: inherit; cursor: pointer; }
 .nav-links a:hover { color: var(--ink); }
 .nav-actions { display: flex; align-items: center; gap: 12px; }
 
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+}
+@media (max-width: 480px) {
+  .nav-actions .btn-primary { display: none; }
+}
+
 .lang-toggle {
   display: inline-flex;
   background: var(--bg-muted);
