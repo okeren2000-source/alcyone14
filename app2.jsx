@@ -4,10 +4,12 @@ const { useState, useEffect, useMemo, useRef } = React;
 
 /* ----------- Nav ----------- */
 function Nav({ t, lang, setLang, dark, setDark }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const close = () => setMobileOpen(false);
   return (
     <header className="nav">
       <div className="shell nav-inner">
-        <a className="brand" href="#top">
+        <a className="brand" href="#top" onClick={close}>
           <span className="brand-mark">A</span>
           <span>Alcyone14</span>
         </a>
@@ -25,8 +27,24 @@ function Nav({ t, lang, setLang, dark, setDark }) {
             <button className={lang === "en" ? "on" : ""} onClick={() => setLang("en")}>EN</button>
           </div>
           <a href="#cta" className="btn btn-primary">{t.nav.cta}</a>
+          <button className="nav-burger" aria-label="Toggle menu" aria-expanded={mobileOpen} onClick={() => setMobileOpen(o => !o)}>
+            {mobileOpen
+              ? <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="2" y1="2" x2="16" y2="16"/><line x1="16" y1="2" x2="2" y2="16"/></svg>
+              : <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="2" y1="5" x2="16" y2="5"/><line x1="2" y1="9" x2="16" y2="9"/><line x1="2" y1="13" x2="16" y2="13"/></svg>
+            }
+          </button>
         </div>
       </div>
+
+      {mobileOpen && (
+        <nav className="nav-mobile" aria-label="mobile menu">
+          <a href="#features" onClick={close}>{t.nav.services}</a>
+          <a href="#demo" onClick={close}>{t.nav.demo}</a>
+          <a href="#cases" onClick={close}>{t.nav.cases}</a>
+          <a href="#faq" onClick={close}>{t.nav.faq}</a>
+          <a href="#cta" className="btn btn-primary nav-mobile-cta" onClick={close}>{t.nav.cta}</a>
+        </nav>
+      )}
     </header>
   );
 }

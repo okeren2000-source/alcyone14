@@ -223,10 +223,44 @@ button { font: inherit; cursor: pointer; }
 .nav-links a:hover { color: var(--ink); }
 .nav-actions { display: flex; align-items: center; gap: 12px; }
 
+.nav-burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  color: var(--ink);
+  flex-shrink: 0;
+}
+
+.nav-mobile {
+  display: flex;
+  flex-direction: column;
+  padding: 8px var(--pad-x) 16px;
+  border-top: 1px solid var(--line);
+  background: color-mix(in oklab, var(--bg) 97%, transparent);
+}
+.nav-mobile a {
+  padding: 14px 4px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink-muted);
+  border-bottom: 1px solid var(--line);
+  transition: color var(--t-fast);
+}
+.nav-mobile a:hover { color: var(--ink); }
+.nav-mobile-cta {
+  margin-top: 14px;
+  border-bottom: none !important;
+  justify-content: center;
+  width: 100%;
+}
+
 @media (max-width: 760px) {
   .nav-links { display: none; }
-}
-@media (max-width: 480px) {
+  .nav-burger { display: flex; }
   .nav-actions .btn-primary { display: none; }
 }
 
