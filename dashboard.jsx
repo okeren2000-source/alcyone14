@@ -323,19 +323,16 @@ function ClinicDashboard({ t, lang, autoplay, onAutoplayChange }) {
   const intervalRef = useRef(null);
   const [tickKey, setTickKey] = useState(0); // re-trigger CSS animation
   const userInteracted = useRef(false);
-  const panelContentRef = useRef(null);
-  const lockedHeightRef = useRef(0);
+  const restoreScrollRef = useRef(null);
 
-  // Lock the panel area to the tallest tab seen so far. Runs synchronously
-  // before paint so the browser never sees a height decrease — eliminating
-  // the scroll-jump that scroll-anchoring causes when tabs switch.
+  // Before paint, restore any scroll position saved by the autoplay interval.
+  // This runs synchronously after DOM updates but before the browser paints,
+  // so the user never sees the page jump that height changes would cause.
   useLayoutEffect(() => {
-    const el = panelContentRef.current;
-    if (!el) return;
-    el.style.minHeight = '';
-    const h = el.offsetHeight;
-    if (h > lockedHeightRef.current) lockedHeightRef.current = h;
-    el.style.minHeight = lockedHeightRef.current + 'px';
+    if (restoreScrollRef.current !== null) {
+      window.scrollTo(0, restoreScrollRef.current);
+      restoreScrollRef.current = null;
+    }
   });
 
   useEffect(() => {
@@ -344,6 +341,7 @@ function ClinicDashboard({ t, lang, autoplay, onAutoplayChange }) {
       return;
     }
     intervalRef.current = setInterval(() => {
+      restoreScrollRef.current = window.scrollY;
       setActive(prev => {
         const i = tabs.findIndex(x => x.key === prev);
         return tabs[(i + 1) % tabs.length].key;
@@ -459,9 +457,7 @@ function ClinicDashboard({ t, lang, autoplay, onAutoplayChange }) {
                 </button>
               ))}
             </div>
-            <div ref={panelContentRef}>
-              {Panel}
-            </div>
+            {Panel}
           </div>
         </div>
       </div>
